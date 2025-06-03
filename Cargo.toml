@@ -1,0 +1,67 @@
+[package]
+name = "buildli"
+version = "0.1.0"
+edition = "2021"
+authors = ["Jonathan Haas <jonathan@haas.holdings>"]
+description = "A Rust-native command-line assistant for understanding and navigating codebases in plain English"
+repository = "https://github.com/haasonsaas/buildli"
+license = "MIT"
+keywords = ["cli", "code-search", "nlp", "developer-tools"]
+categories = ["command-line-utilities", "development-tools"]
+
+[dependencies]
+clap = { version = "4.5", features = ["derive", "color", "suggestions"] }
+tokio = { version = "1.40", features = ["full"] }
+tokio-stream = "0.1"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+anyhow = "1.0"
+thiserror = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+directories = "5.0"
+reqwest = { version = "0.12", features = ["json", "stream"] }
+qdrant-client = "1.11"
+tree-sitter = "0.22"
+tree-sitter-rust = "0.21"
+tree-sitter-python = "0.21"
+tree-sitter-javascript = "0.21"
+tree-sitter-typescript = "0.21"
+tree-sitter-go = "0.21"
+tree-sitter-java = "0.21"
+tree-sitter-cpp = "0.22"
+indicatif = "0.17"
+colored = "2.1"
+notify = "6.1"
+sha2 = "0.10"
+base64 = "0.22"
+once_cell = "1.20"
+regex = "1.11"
+walkdir = "2.5"
+ignore = "0.4"
+futures = "0.3"
+async-trait = "0.1"
+tonic = "0.12"
+prost = "0.13"
+axum = { version = "0.7", features = ["ws"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["cors", "trace"] }
+uuid = { version = "1.11", features = ["v4", "serde"] }
+
+[build-dependencies]
+tonic-build = "0.12"
+
+[dev-dependencies]
+tempfile = "3.14"
+mockall = "0.13"
+criterion = "0.5"
+
+[[bin]]
+name = "buildli"
+path = "src/main.rs"
+
+[profile.release]
+lto = true
+opt-level = 3
+strip = true

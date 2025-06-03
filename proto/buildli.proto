@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package buildli;
+
+service BuildliService {
+    rpc Query(QueryRequest) returns (stream QueryResponse);
+    rpc BugSolve(BugSolveRequest) returns (stream BugSolveResponse);
+    rpc IndexStatus(IndexStatusRequest) returns (IndexStatusResponse);
+}
+
+message QueryRequest {
+    string question = 1;
+    int32 top_k = 2;
+    repeated string repos = 3;
+    repeated string languages = 4;
+}
+
+message QueryResponse {
+    string chunk = 1;
+    repeated CodeReference references = 2;
+}
+
+message CodeReference {
+    string file_path = 1;
+    int32 line_start = 2;
+    int32 line_end = 3;
+    string snippet = 4;
+    float relevance_score = 5;
+}
+
+message BugSolveRequest {
+    string description = 1;
+    bool apply = 2;
+}
+
+message BugSolveResponse {
+    string chunk = 1;
+    string patch = 2;
+    repeated string affected_files = 3;
+}
+
+message IndexStatusRequest {
+    repeated string paths = 1;
+}
+
+message IndexStatusResponse {
+    int64 total_files = 1;
+    int64 indexed_files = 2;
+    int64 total_chunks = 3;
+    string last_updated = 4;
+}
